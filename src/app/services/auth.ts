@@ -25,8 +25,7 @@ export interface LoginData {
 export class AuthService {
   private http = inject(HttpClient);
 
-  // Vercel Proxy
-  private apiUrl = '/api/auth';
+  private apiUrl = 'https://elghandoura-auth-pegfh7jy.b4a.run/auth';
 
   signup(data: SignupData): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(
