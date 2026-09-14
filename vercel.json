@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/auth/:path*",
-      "destination": "https://elghandoura-auth-5w4jfxw.b4a.run/auth/:path*"
+      "destination": "https://elghandoura-auth-pegfh7jy.b4a.run/auth/:path*"
     }
   ]
 }
