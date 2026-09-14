@@ -25,42 +25,20 @@ export interface LoginData {
 export class AuthService {
   private http = inject(HttpClient);
 
-  private apiUrl =
-    'https://elghandoura-auth-yu0fp5w6.b4a.run/auth';
+  // Vercel Proxy
+  private apiUrl = '/api/auth';
 
   signup(data: SignupData): Observable<AuthResponse> {
-    const body = new URLSearchParams();
-
-    body.set('name', data.name);
-    body.set('email', data.email);
-    body.set('password', data.password);
-    body.set('phone', data.phone);
-
     return this.http.post<AuthResponse>(
       `${this.apiUrl}/signup`,
-      body.toString(),
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }
+      data
     );
   }
 
   login(data: LoginData): Observable<AuthResponse> {
-    const body = new URLSearchParams();
-
-    body.set('email', data.email);
-    body.set('password', data.password);
-
     return this.http.post<AuthResponse>(
       `${this.apiUrl}/login`,
-      body.toString(),
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }
+      data
     );
   }
 
