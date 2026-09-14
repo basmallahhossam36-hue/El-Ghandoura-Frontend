@@ -1,0 +1,235 @@
+<div class="register-page" [dir]="isArabic ? 'rtl' : 'ltr'">
+
+  <div class="register-card">
+
+    <h1>El Ghandoura Store</h1>
+
+    <h2>
+      {{ isArabic ? 'إنشاء حساب' : 'Create Account' }}
+    </h2>
+
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="register()"
+    >
+
+      <!-- Name -->
+
+      <div class="form-group">
+
+        <label>
+          {{ isArabic ? 'الاسم' : 'Name' }}
+        </label>
+
+        <input
+          type="text"
+          formControlName="name"
+          [placeholder]="
+            isArabic
+              ? 'أدخل اسمك'
+              : 'Enter your name'
+          "
+        >
+
+        @if (
+          registerForm.controls.name.touched &&
+          registerForm.controls.name.invalid
+        ) {
+
+          <small class="error-message">
+
+            @if (registerForm.controls.name.errors?.['required']) {
+              {{
+                isArabic
+                  ? 'الاسم مطلوب'
+                  : 'Name is required'
+              }}
+            }
+
+            @else if (registerForm.controls.name.errors?.['minlength']) {
+              {{
+                isArabic
+                  ? 'الاسم يجب أن يكون حرفين على الأقل'
+                  : 'Name must be at least 2 characters'
+              }}
+            }
+
+          </small>
+
+        }
+
+      </div>
+
+
+      <!-- Email -->
+
+      <div class="form-group">
+
+        <label>
+          {{ isArabic ? 'البريد الإلكتروني' : 'Email' }}
+        </label>
+
+        <input
+          type="email"
+          formControlName="email"
+          [placeholder]="
+            isArabic
+              ? 'أدخل بريدك الإلكتروني'
+              : 'Enter your email'
+          "
+        >
+
+        @if (
+          registerForm.controls.email.touched &&
+          registerForm.controls.email.invalid
+        ) {
+
+          <small class="error-message">
+
+            @if (registerForm.controls.email.errors?.['required']) {
+              {{
+                isArabic
+                  ? 'البريد الإلكتروني مطلوب'
+                  : 'Email is required'
+              }}
+            }
+
+            @else if (registerForm.controls.email.errors?.['email']) {
+              {{
+                isArabic
+                  ? 'أدخل بريدًا إلكترونيًا صحيحًا'
+                  : 'Enter a valid email'
+              }}
+            }
+
+          </small>
+
+        }
+
+      </div>
+
+
+      <!-- Phone -->
+
+      <div class="form-group">
+
+        <label>
+          {{ isArabic ? 'رقم الهاتف' : 'Phone' }}
+        </label>
+
+        <input
+          type="text"
+          formControlName="phone"
+          [placeholder]="
+            isArabic
+              ? 'أدخل رقم هاتفك'
+              : 'Enter your phone'
+          "
+        >
+
+        @if (
+          registerForm.controls.phone.touched &&
+          registerForm.controls.phone.invalid
+        ) {
+
+          <small class="error-message">
+
+            @if (registerForm.controls.phone.errors?.['required']) {
+              {{
+                isArabic
+                  ? 'رقم الهاتف مطلوب'
+                  : 'Phone is required'
+              }}
+            }
+
+            @else if (registerForm.controls.phone.errors?.['pattern']) {
+              {{
+                isArabic
+                  ? 'أدخل رقم هاتف صحيح'
+                  : 'Enter a valid phone number'
+              }}
+            }
+
+          </small>
+
+        }
+
+      </div>
+
+
+      <!-- Password -->
+
+      <div class="form-group">
+
+        <label>
+          {{ isArabic ? 'كلمة المرور' : 'Password' }}
+        </label>
+
+        <input
+          type="password"
+          formControlName="password"
+          [placeholder]="
+            isArabic
+              ? 'أدخل كلمة المرور'
+              : 'Enter your password'
+          "
+        >
+
+        @if (
+          registerForm.controls.password.touched &&
+          registerForm.controls.password.invalid
+        ) {
+
+          <small class="error-message">
+
+            @if (registerForm.controls.password.errors?.['required']) {
+              {{
+                isArabic
+                  ? 'كلمة المرور مطلوبة'
+                  : 'Password is required'
+              }}
+            }
+
+            @else if (registerForm.controls.password.errors?.['minlength']) {
+              {{
+                isArabic
+                  ? 'كلمة المرور يجب أن تكون 6 أحرف على الأقل'
+                  : 'Password must be at least 6 characters'
+              }}
+            }
+
+          </small>
+
+        }
+
+      </div>
+
+
+      <!-- Register Button -->
+
+      <button type="submit">
+        {{ isArabic ? 'إنشاء الحساب' : 'Register' }}
+      </button>
+
+
+      <!-- Login Link -->
+
+      <p class="login-text">
+
+        {{
+          isArabic
+            ? 'لديك حساب بالفعل؟'
+            : 'Already have an account?'
+        }}
+
+        <a routerLink="/login">
+          {{ isArabic ? 'تسجيل الدخول' : 'Login' }}
+        </a>
+
+      </p>
+
+    </form>
+
+  </div>
+
+</div>

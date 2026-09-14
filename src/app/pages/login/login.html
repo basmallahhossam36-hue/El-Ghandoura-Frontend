@@ -1,0 +1,116 @@
+<div class="login-page" [dir]="isArabic ? 'rtl' : 'ltr'">
+
+  <div class="login-card">
+
+    <h1>El Ghandoura Store</h1>
+
+    <h2>
+      {{ isArabic ? 'تسجيل الدخول' : 'Login' }}
+    </h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+
+      <div class="form-group">
+
+        <label>
+          {{ isArabic ? 'البريد الإلكتروني' : 'Email' }}
+        </label>
+
+        <input
+          type="email"
+          formControlName="email"
+          [placeholder]="
+            isArabic
+              ? 'أدخل بريدك الإلكتروني'
+              : 'Enter your email'
+          "
+        >
+
+        @if (
+          loginForm.controls.email.touched &&
+          loginForm.controls.email.invalid
+        ) {
+
+          <small class="error-message">
+
+            @if (loginForm.controls.email.errors?.['required']) {
+              {{ isArabic ? 'البريد الإلكتروني مطلوب' : 'Email is required' }}
+            }
+
+            @else if (loginForm.controls.email.errors?.['email']) {
+              {{ isArabic ? 'أدخل بريدًا إلكترونيًا صحيحًا' : 'Enter a valid email' }}
+            }
+
+          </small>
+
+        }
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          {{ isArabic ? 'كلمة المرور' : 'Password' }}
+        </label>
+
+        <input
+          type="password"
+          formControlName="password"
+          [placeholder]="
+            isArabic
+              ? 'أدخل كلمة المرور'
+              : 'Enter your password'
+          "
+        >
+
+        @if (
+          loginForm.controls.password.touched &&
+          loginForm.controls.password.invalid
+        ) {
+
+          <small class="error-message">
+
+            @if (loginForm.controls.password.errors?.['required']) {
+              {{ isArabic ? 'كلمة المرور مطلوبة' : 'Password is required' }}
+            }
+
+            @else if (loginForm.controls.password.errors?.['minlength']) {
+              {{
+                isArabic
+                  ? 'كلمة المرور يجب أن تكون 6 أحرف على الأقل'
+                  : 'Password must be at least 6 characters'
+              }}
+            }
+
+          </small>
+
+        }
+
+      </div>
+
+
+      <button type="submit">
+        {{ isArabic ? 'تسجيل الدخول' : 'Login' }}
+      </button>
+
+
+      <p class="register-text">
+
+        {{
+          isArabic
+            ? 'ليس لديك حساب؟'
+            : "Don't have an account?"
+        }}
+
+        <a routerLink="/register">
+          {{ isArabic ? 'إنشاء حساب' : 'Register' }}
+        </a>
+
+      </p>
+
+    </form>
+
+  </div>
+
+</div>

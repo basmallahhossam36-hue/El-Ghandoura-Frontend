@@ -1,0 +1,465 @@
+<div
+  class="track-page"
+  [dir]="isArabic ? 'rtl' : 'ltr'"
+>
+
+  <div class="track-container">
+
+    <!-- HEADER -->
+
+    <div class="page-header">
+
+      <p class="small-title">
+        ELGHANDOURA STORE
+      </p>
+
+      <h1>
+        {{ isArabic ? 'تتبع طلبك' : 'Track Your Order' }}
+      </h1>
+
+      <p class="subtitle">
+        {{
+          isArabic
+            ? 'أدخل رقم طلبك لمعرفة حالته الحالية.'
+            : 'Enter your order ID to check the current status of your order.'
+        }}
+      </p>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="track-card">
+
+      <h2>
+        {{ isArabic ? 'البحث عن طلبك' : 'Find Your Order' }}
+      </h2>
+
+      <div class="search-group">
+
+        <label>
+          {{ isArabic ? 'رقم الطلب' : 'Order ID' }}
+        </label>
+
+        <div class="search-input">
+
+          <input
+            type="text"
+            [(ngModel)]="orderId"
+            [placeholder]="
+              isArabic
+                ? 'أدخل رقم الطلب'
+                : 'Enter your order ID'
+            "
+          >
+
+          <button
+            type="button"
+            (click)="trackOrder()"
+          >
+            {{ isArabic ? 'تتبع الطلب' : 'Track Order' }}
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- LOADING -->
+
+    @if (loading) {
+
+      <div class="order-status-card">
+
+        <h2>
+          {{
+            isArabic
+              ? 'جاري البحث عن الطلب...'
+              : 'Searching for your order...'
+          }}
+        </h2>
+
+      </div>
+
+    }
+
+
+    <!-- NOT FOUND -->
+
+    @if (!loading && notFound) {
+
+      <div class="order-status-card">
+
+        <h2>
+          {{
+            isArabic
+              ? 'لم يتم العثور على الطلب'
+              : 'Order not found'
+          }}
+        </h2>
+
+        <p class="subtitle">
+          {{
+            isArabic
+              ? 'تأكد من أن رقم الطلب صحيح.'
+              : 'Please make sure the order ID is correct.'
+          }}
+        </p>
+
+      </div>
+
+    }
+
+
+    <!-- REAL ORDER -->
+
+    @if (order; as currentOrder) {
+
+      <div class="order-status-card">
+
+        <!-- STATUS HEADER -->
+
+        <div class="status-header">
+
+          <div>
+
+            <p class="status-label">
+              {{ isArabic ? 'حالة الطلب' : 'ORDER STATUS' }}
+            </p>
+
+            <h2>
+              {{ isArabic ? 'الطلب رقم' : 'Order' }}
+              #{{ currentOrder._id }}
+            </h2>
+
+          </div>
+
+          <span class="status-badge">
+            {{ currentOrder.status || 'Pending' }}
+          </span>
+
+        </div>
+
+
+        <div class="status-line"></div>
+
+
+        <!-- ORDER INFO -->
+
+        <div class="order-info">
+
+          <div>
+            <span>
+              {{ isArabic ? 'العميل' : 'Customer' }}
+            </span>
+
+            <strong>
+              {{ currentOrder.customerName }}
+            </strong>
+          </div>
+
+          <div>
+            <span>
+              {{ isArabic ? 'المنتجات' : 'Products' }}
+            </span>
+
+            <strong>
+              {{ currentOrder.productName }}
+            </strong>
+          </div>
+
+          <div>
+            <span>
+              {{ isArabic ? 'الكمية' : 'Quantity' }}
+            </span>
+
+            <strong>
+              {{ currentOrder.quantity }}
+            </strong>
+          </div>
+
+          <div>
+            <span>
+              {{ isArabic ? 'الإجمالي' : 'Total' }}
+            </span>
+
+            <strong>
+              {{ currentOrder.totalPrice }} SAR
+            </strong>
+          </div>
+
+        </div>
+
+
+        <div class="status-line"></div>
+
+
+        <!-- STATUS STEPS -->
+
+        <div class="status-steps">
+
+
+          <!-- Pending -->
+
+          <div
+            class="status-step"
+            [class.active]="isStepActive('Pending')"
+          >
+
+            <div class="status-icon">
+
+              @if (isStepActive('Pending')) {
+                ✓
+              } @else {
+                1
+              }
+
+            </div>
+
+            <div>
+
+              <h3>
+                {{ isArabic ? 'قيد الانتظار' : 'Pending' }}
+              </h3>
+
+              <p>
+                {{
+                  isArabic
+                    ? 'تم استلام طلبك.'
+                    : 'Your order has been received.'
+                }}
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <!-- Confirmed -->
+
+          <div
+            class="status-step"
+            [class.active]="isStepActive('Confirmed')"
+          >
+
+            <div class="status-icon">
+
+              @if (isStepActive('Confirmed')) {
+                ✓
+              } @else {
+                2
+              }
+
+            </div>
+
+            <div>
+
+              <h3>
+                {{ isArabic ? 'تم التأكيد' : 'Confirmed' }}
+              </h3>
+
+              <p>
+                {{
+                  isArabic
+                    ? 'تم تأكيد طلبك.'
+                    : 'Your order has been confirmed.'
+                }}
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <!-- Preparing -->
+
+          <div
+            class="status-step"
+            [class.active]="isStepActive('Preparing')"
+          >
+
+            <div class="status-icon">
+
+              @if (isStepActive('Preparing')) {
+                ✓
+              } @else {
+                3
+              }
+
+            </div>
+
+            <div>
+
+              <h3>
+                {{ isArabic ? 'جاري التجهيز' : 'Preparing' }}
+              </h3>
+
+              <p>
+                {{
+                  isArabic
+                    ? 'يتم تجهيز طلبك.'
+                    : 'Your order is being prepared.'
+                }}
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <!-- Reached KSA -->
+
+          <div
+            class="status-step"
+            [class.active]="isStepActive('Reached KSA')"
+          >
+
+            <div class="status-icon">
+
+              @if (isStepActive('Reached KSA')) {
+                ✓
+              } @else {
+                4
+              }
+
+            </div>
+
+            <div>
+
+              <h3>
+                {{ isArabic ? 'وصل إلى السعودية' : 'Reached KSA' }}
+              </h3>
+
+              <p>
+                {{
+                  isArabic
+                    ? 'وصل طلبك إلى السعودية.'
+                    : 'Your order has reached Saudi Arabia.'
+                }}
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <!-- Shipped -->
+
+          <div
+            class="status-step"
+            [class.active]="isStepActive('Shipped')"
+          >
+
+            <div class="status-icon">
+
+              @if (isStepActive('Shipped')) {
+                ✓
+              } @else {
+                5
+              }
+
+            </div>
+
+            <div>
+
+              <h3>
+                {{ isArabic ? 'تم الشحن' : 'Shipped' }}
+              </h3>
+
+              <p>
+                {{
+                  isArabic
+                    ? 'تم شحن طلبك.'
+                    : 'Your order has been shipped.'
+                }}
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <!-- Reached Egypt -->
+
+          <div
+            class="status-step"
+            [class.active]="isStepActive('Reached Egypt')"
+          >
+
+            <div class="status-icon">
+
+              @if (isStepActive('Reached Egypt')) {
+                ✓
+              } @else {
+                6
+              }
+
+            </div>
+
+            <div>
+
+              <h3>
+                {{ isArabic ? 'وصل إلى مصر' : 'Reached Egypt' }}
+              </h3>
+
+              <p>
+                {{
+                  isArabic
+                    ? 'وصل طلبك إلى مصر.'
+                    : 'Your order has reached Egypt.'
+                }}
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <!-- Delivered -->
+
+          <div
+            class="status-step"
+            [class.active]="isStepActive('Delivered')"
+          >
+
+            <div class="status-icon">
+
+              @if (isStepActive('Delivered')) {
+                ✓
+              } @else {
+                7
+              }
+
+            </div>
+
+            <div>
+
+              <h3>
+                {{ isArabic ? 'تم التسليم' : 'Delivered' }}
+              </h3>
+
+              <p>
+                {{
+                  isArabic
+                    ? 'تم تسليم طلبك بنجاح.'
+                    : 'Your order has been delivered successfully.'
+                }}
+              </p>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+
+</div>

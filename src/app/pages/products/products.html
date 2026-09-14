@@ -1,0 +1,124 @@
+<div class="products-page" [dir]="isArabic ? 'rtl' : 'ltr'">
+
+  <div class="products-container">
+
+    <div class="page-header">
+
+      <p class="small-title">
+        ELGHANDOURA STORE
+      </p>
+
+      <h1>
+        {{ isArabic ? 'منتجاتنا' : 'Our Products' }}
+      </h1>
+
+      <p class="subtitle">
+        {{
+          isArabic
+            ? 'اكتشف المنتجات من متاجرك المفضلة'
+            : 'Discover products from your favorite stores'
+        }}
+      </p>
+
+    </div>
+
+
+    <div class="products-grid">
+
+      @for (product of products(); track product._id) {
+
+        <div
+          class="product-card"
+          [routerLink]="['/products', product._id]"
+        >
+
+          <div class="product-image">
+
+            @if (product.images.length > 0) {
+
+              <img
+                [src]="
+                  'http://localhost:3000' +
+                  product.images[currentImageIndexes[product._id!] ?? 0]
+                "
+                [alt]="product.name"
+              >
+
+              @if (product.images.length > 1) {
+
+                <button
+                  type="button"
+                  class="image-arrow left-arrow"
+                  (click)="previousImage(product); $event.stopPropagation()"
+                >
+                  ‹
+                </button>
+
+                <button
+                  type="button"
+                  class="image-arrow right-arrow"
+                  (click)="nextImage(product); $event.stopPropagation()"
+                >
+                  ›
+                </button>
+
+                <div
+                  class="image-counter"
+                  (click)="$event.stopPropagation()"
+                >
+                  {{
+                    (currentImageIndexes[product._id!] ?? 0) + 1
+                  }}
+                  /
+                  {{ product.images.length }}
+                </div>
+
+              }
+
+            } @else {
+
+              <span>
+                {{ isArabic ? 'لا توجد صورة' : 'No Image' }}
+              </span>
+
+            }
+
+          </div>
+
+
+          <div class="product-info">
+
+            <h2>
+              {{ product.name }}
+            </h2>
+
+            <p class="product-description">
+              {{ product.description }}
+            </p>
+
+            <div class="product-bottom">
+
+              <span class="price">
+                {{ product.price }}
+              </span>
+
+              <button
+                type="button"
+                (click)="addToCart(product); $event.stopPropagation()"
+              >
+                {{ isArabic ? 'أضف إلى السلة' : 'Add to Cart' }}
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,256 @@
+<div class="admin-page">
+
+  <div class="admin-container">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+
+      <div>
+        <p class="small-title">ELGHANDOURA STORE</p>
+
+        <h1>Manage Products</h1>
+
+        <p class="subtitle">
+          Add and manage the products in your store
+        </p>
+      </div>
+
+    </div>
+
+
+    <!-- PRODUCT FORM -->
+    <div class="product-form-card">
+
+      @if (editingProductId) {
+
+        <h2>Edit Product</h2>
+
+      } @else {
+
+        <h2>Add New Product</h2>
+
+      }
+
+
+      <form
+        (submit)="
+          editingProductId
+            ? updateProduct()
+            : addProduct();
+
+          $event.preventDefault()
+        "
+      >
+
+        <!-- PRODUCT NAME -->
+        <div class="form-group">
+
+          <label>Product Name</label>
+
+          <input
+            type="text"
+            placeholder="Enter product name"
+            [(ngModel)]="productName"
+            name="productName"
+            required
+          >
+
+        </div>
+
+
+        <!-- DESCRIPTION -->
+        <div class="form-group">
+
+          <label>Description</label>
+
+          <textarea
+            placeholder="Enter product description"
+            rows="4"
+            [(ngModel)]="description"
+            name="description"
+            required
+          ></textarea>
+
+        </div>
+
+
+        <!-- PRICE -->
+        <div class="form-group">
+
+          <label>Price</label>
+
+          <input
+            type="text"
+            placeholder="Example: 250 SAR or 1,500 EGP"
+            [(ngModel)]="price"
+            name="price"
+            required
+          >
+
+        </div>
+
+
+        <!-- IMAGES -->
+        <div class="form-group">
+
+          <label>Product Images</label>
+
+          <input
+            type="file"
+            accept="image/jpeg,image/jpg,image/png,image/webp"
+            multiple
+            (change)="onImagesSelected($event)"
+          >
+
+          <p class="file-hint">
+            You can select up to 5 images.
+          </p>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+        <div class="form-buttons">
+
+          @if (editingProductId) {
+
+            <button
+              type="submit"
+              class="save-button"
+            >
+              Update Product
+            </button>
+
+            <button
+              type="button"
+              class="cancel-button"
+              (click)="cancelEdit()"
+            >
+              Cancel
+            </button>
+
+          } @else {
+
+            <button
+              type="submit"
+              class="save-button"
+            >
+              Add Product
+            </button>
+
+          }
+
+        </div>
+
+      </form>
+
+    </div>
+
+
+    <!-- PRODUCTS LIST -->
+    <div class="products-list-card">
+
+      <div class="products-list-header">
+
+        <div>
+
+          <p class="small-title">STORE INVENTORY</p>
+
+          <h2>Products</h2>
+
+        </div>
+
+        <span class="products-count">
+          {{ products.length }} Products
+        </span>
+
+      </div>
+
+
+      @if (products.length === 0) {
+
+        <div class="empty-products">
+
+          <p>No products found.</p>
+
+        </div>
+
+      } @else {
+
+        <div class="admin-products-grid">
+
+          @for (product of products; track product._id) {
+
+            <div class="admin-product-card">
+
+              <!-- IMAGE -->
+              <div class="admin-product-image">
+
+                @if (product.images.length > 0) {
+
+                  <img
+                    [src]="'http://localhost:3000' + product.images[0]"
+                    [alt]="product.name"
+                  >
+
+                } @else {
+
+                  <span>No Image</span>
+
+                }
+
+              </div>
+
+
+              <!-- INFO -->
+              <div class="admin-product-info">
+
+                <h3>
+                  {{ product.name }}
+                </h3>
+
+                <p>
+                  {{ product.description }}
+                </p>
+
+                <strong>
+                  {{ product.price }}
+                </strong>
+
+
+                <!-- ACTIONS -->
+                <div class="admin-product-actions">
+
+                  <button
+                    type="button"
+                    class="edit-button"
+                    (click)="startEdit(product)"
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    type="button"
+                    class="delete-button"
+                    (click)="deleteProduct(product)"
+                  >
+                    Delete
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          }
+
+        </div>
+
+      }
+
+    </div>
+
+  </div>
+
+</div>

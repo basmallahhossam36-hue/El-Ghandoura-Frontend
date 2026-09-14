@@ -1,0 +1,143 @@
+<div class="details-page" [dir]="isArabic ? 'rtl' : 'ltr'">
+
+  <div class="details-container">
+
+    @if (product(); as currentProduct) {
+
+      <a routerLink="/products" class="back-link">
+        ← {{ isArabic ? 'العودة إلى المنتجات' : 'Back to Products' }}
+      </a>
+
+      <div class="details-card">
+
+        <div class="gallery-section">
+
+          <div class="main-image">
+
+            @if (currentProduct.images.length > 0) {
+
+              <img
+                [src]="
+                  'http://localhost:3000' +
+                  currentProduct.images[currentImageIndex]
+                "
+                [alt]="currentProduct.name"
+              >
+
+              @if (currentProduct.images.length > 1) {
+
+                <button
+                  type="button"
+                  class="image-arrow left-arrow"
+                  (click)="previousImage()"
+                >
+                  ‹
+                </button>
+
+                <button
+                  type="button"
+                  class="image-arrow right-arrow"
+                  (click)="nextImage()"
+                >
+                  ›
+                </button>
+
+                <div class="image-counter">
+                  {{ currentImageIndex + 1 }}
+                  /
+                  {{ currentProduct.images.length }}
+                </div>
+
+              }
+
+            } @else {
+
+              <span>
+                {{ isArabic ? 'لا توجد صورة' : 'No Image' }}
+              </span>
+
+            }
+
+          </div>
+
+
+          @if (currentProduct.images.length > 1) {
+
+            <div class="thumbnails">
+
+              @for (
+                image of currentProduct.images;
+                track image;
+                let i = $index
+              ) {
+
+                <button
+                  type="button"
+                  class="thumbnail"
+                  [class.active]="currentImageIndex === i"
+                  (click)="selectImage(i)"
+                >
+
+                  <img
+                    [src]="'http://localhost:3000' + image"
+                    [alt]="currentProduct.name"
+                  >
+
+                </button>
+
+              }
+
+            </div>
+
+          }
+
+        </div>
+
+
+        <div class="product-details-info">
+
+          <p class="small-title">
+            ELGHANDOURA STORE
+          </p>
+
+          <h1>
+            {{ currentProduct.name }}
+          </h1>
+
+          <div class="price">
+            {{ currentProduct.price }}
+          </div>
+
+          <div class="details-line"></div>
+
+          <h2>
+            {{ isArabic ? 'الوصف' : 'Description' }}
+          </h2>
+
+          <p class="description">
+            {{ currentProduct.description }}
+          </p>
+
+          <button
+            type="button"
+            class="add-cart-button"
+            (click)="addToCart()"
+          >
+            {{ isArabic ? 'أضف إلى السلة' : 'Add to Cart' }}
+          </button>
+
+        </div>
+
+      </div>
+
+    } @else {
+
+      <div class="loading">
+        {{ isArabic ? 'جاري تحميل المنتج...' : 'Loading product...' }}
+      </div>
+
+    }
+
+  </div>
+
+</div>

@@ -1,0 +1,712 @@
+<div class="page" [dir]="isArabic ? 'rtl' : 'ltr'">
+
+  <!-- ================= NAVBAR ================= -->
+
+  <header class="navbar">
+
+    <div class="nav-container">
+
+      <div class="logo">
+
+        <span class="logo-box">
+          📦
+        </span>
+
+        <span>
+          ELGHANDOURA
+          <br>
+          <small>STORE</small>
+        </span>
+
+      </div>
+
+
+      <nav>
+
+        <a routerLink="/">
+          {{ isArabic ? 'الرئيسية' : 'Home' }}
+        </a>
+
+        <a routerLink="/products">
+          {{ isArabic ? 'المنتجات' : 'Products' }}
+        </a>
+
+        <!-- CART WITH COUNT -->
+
+        <a
+          routerLink="/cart"
+          class="cart-nav-link"
+        >
+          {{ isArabic ? 'السلة' : 'Cart' }}
+
+          @if (cartCount > 0) {
+            <span class="cart-badge">
+              {{ cartCount }}
+            </span>
+          }
+        </a>
+
+        <a href="#about">
+          {{ isArabic ? 'من نحن' : 'About Us' }}
+        </a>
+
+        <a href="#how-it-works">
+          {{ isArabic ? 'كيف تعمل' : 'How It Works' }}
+        </a>
+
+        <a href="#services">
+          {{ isArabic ? 'خدماتنا' : 'Services' }}
+        </a>
+
+        <a href="#contact">
+          {{ isArabic ? 'تواصل معنا' : 'Contact' }}
+        </a>
+
+      </nav>
+
+
+      <div class="auth-buttons">
+
+        <button
+          class="language-btn"
+          (click)="toggleLanguage()"
+        >
+          {{ isArabic ? 'EN' : 'AR' }}
+        </button>
+
+        <a
+          routerLink="/login"
+          class="login-link"
+        >
+          {{ isArabic ? 'تسجيل الدخول' : 'Login' }}
+        </a>
+
+        <a
+          routerLink="/register"
+          class="register-btn"
+        >
+          {{ isArabic ? 'إنشاء حساب' : 'Register' }}
+        </a>
+
+        <button
+          type="button"
+          class="logout-button"
+          (click)="logout()"
+        >
+          {{ isArabic ? 'تسجيل الخروج' : 'Logout' }}
+        </button>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <div class="small-title">
+
+          ✦
+
+          {{ isArabic
+            ? 'من السعودية إلى باب بيتك'
+            : 'FROM KSA TO YOUR DOOR'
+          }}
+
+        </div>
+
+
+        <h1>
+
+          {{ isArabic
+            ? 'نوصل لك أي شيء من'
+            : 'We deliver anything from'
+          }}
+
+          <span>
+
+            {{ isArabic
+              ? 'السعودية'
+              : 'Saudi Arabia'
+            }}
+
+          </span>
+
+          {{ isArabic
+            ? 'لحد باب بيتك في مصر'
+            : 'to your door in Egypt'
+          }}
+
+        </h1>
+
+
+        <p>
+
+          {{ isArabic
+            ? 'تسوق من متاجرك المفضلة في السعودية ونحن نهتم بالباقي.'
+            : 'Shop from your favorite stores in KSA and we take care of the rest.'
+          }}
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+          <a
+            href="/login"
+            class="primary-btn"
+          >
+            {{ isArabic ? 'اطلب الآن' : 'Place Order' }}
+          </a>
+
+
+          <a
+            routerLink="/track-order"
+            class="secondary-btn"
+          >
+            {{ isArabic ? 'تتبع طلبك' : 'Track Order' }}
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================= HERO IMAGE ================= -->
+
+      <div class="hero-visual">
+
+        <img
+          src="/hero-map.jpeg"
+          [alt]="isArabic
+            ? 'التوصيل من السعودية إلى مصر'
+            : 'Saudi Arabia to Egypt delivery'"
+          class="hero-map-image"
+        >
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= HOW IT WORKS ================= -->
+
+    <section
+      class="how-section"
+      id="how-it-works"
+    >
+
+      <div class="section-heading">
+
+        <span>
+          ✦
+          {{ isArabic ? 'كيف تعمل الخدمة' : 'HOW IT WORKS' }}
+        </span>
+
+
+        <h2>
+
+          {{ isArabic
+            ? 'من السعودية إلى باب بيتك،'
+            : 'From KSA to your door,'
+          }}
+
+          <br>
+
+          <strong>
+            {{ isArabic
+              ? 'الأمر بهذه السهولة!'
+              : "it's that simple!"
+            }}
+          </strong>
+
+        </h2>
+
+      </div>
+
+
+      <div class="steps">
+
+        <!-- STEP 1 -->
+
+        <div class="step">
+
+          <div class="step-icon">
+            🛍️
+          </div>
+
+          <h3>
+            {{ isArabic ? 'اختار منتجاتك' : 'Choose Your Items' }}
+          </h3>
+
+          <p>
+            {{ isArabic
+              ? 'تسوق من متاجرك المفضلة في السعودية.'
+              : 'Shop from your favorite stores in Saudi Arabia.'
+            }}
+          </p>
+
+        </div>
+
+
+        <div class="step-line"></div>
+
+
+        <!-- STEP 2 -->
+
+        <div class="step">
+
+          <div class="step-icon">
+            📦
+          </div>
+
+          <h3>
+            {{ isArabic ? 'قدم طلبك' : 'Place Your Order' }}
+          </h3>
+
+          <p>
+            {{ isArabic
+              ? 'أخبرنا بما تريده وأرسل طلبك.'
+              : 'Tell us what you want and submit your order.'
+            }}
+          </p>
+
+        </div>
+
+
+        <div class="step-line"></div>
+
+
+        <!-- STEP 3 -->
+
+        <div class="step">
+
+          <div class="step-icon">
+            💬
+          </div>
+
+          <h3>
+            {{ isArabic ? 'تأكيد طلبك' : 'Confirm Your Order' }}
+          </h3>
+
+          <p>
+            {{ isArabic
+              ? 'سنتواصل معكم عن طريق واتساب لتأكيد طلبكم.'
+              : 'We will contact you through WhatsApp to confirm your order.'
+            }}
+          </p>
+
+        </div>
+
+
+        <div class="step-line"></div>
+
+
+        <!-- STEP 4 -->
+
+        <div class="step">
+
+          <div class="step-icon">
+            ✈️
+          </div>
+
+          <h3>
+            {{ isArabic ? 'نحضر طلبك' : 'We Bring It' }}
+          </h3>
+
+          <p>
+            {{ isArabic
+              ? 'نشتري ونشحن منتجاتك من السعودية.'
+              : 'We purchase and ship your items from KSA.'
+            }}
+          </p>
+
+        </div>
+
+
+        <div class="step-line"></div>
+
+
+        <!-- STEP 5 -->
+
+        <div class="step">
+
+          <div class="step-icon">
+            🏠
+          </div>
+
+          <h3>
+            {{ isArabic ? 'يصل طلبك إليك' : 'Delivered To You' }}
+          </h3>
+
+          <p>
+            {{ isArabic
+              ? 'استلم طلبك عند باب بيتك.'
+              : 'Receive your order right at your doorstep.'
+            }}
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= FAVORITE STORES ================= -->
+
+    <section class="stores-section">
+
+      <div class="section-heading">
+
+        <span>
+          ✦
+          {{ isArabic ? 'متاجرنا المفضلة' : 'FAVORITE STORES' }}
+        </span>
+
+
+        <h2>
+
+          {{ isArabic
+            ? 'تسوق من المتاجر'
+            : 'Shop from the stores'
+          }}
+
+          <strong>
+
+            {{ isArabic
+              ? 'التي تحبها'
+              : 'you love'
+            }}
+
+          </strong>
+
+        </h2>
+
+      </div>
+
+
+      <div class="stores">
+
+        <div class="store-card">
+          Trendyol
+        </div>
+
+
+        <div class="store-card">
+          Noon
+        </div>
+
+
+        <a
+          routerLink="/shein-instructions"
+          class="store-card"
+        >
+          SHEIN
+        </a>
+
+
+        <div class="store-card">
+          Dyson
+        </div>
+
+
+        <div class="store-card">
+          Alsaif Gallery
+        </div>
+
+
+        <div class="store-card">
+          {{ isArabic ? 'متاجر أخرى' : 'Other' }}
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= FEATURES ================= -->
+
+    <section
+      class="features-section"
+      id="services"
+    >
+
+      <div class="feature">
+
+        <div class="feature-icon">
+          🚚
+        </div>
+
+        <h3>
+          {{ isArabic ? 'توصيل سريع' : 'Fast Delivery' }}
+        </h3>
+
+        <p>
+          {{ isArabic
+            ? 'نحرص على وصول طلباتك إليك بأمان.'
+            : 'We make sure your orders reach you safely.'
+          }}
+        </p>
+
+      </div>
+
+
+      <div class="feature">
+
+        <div class="feature-icon">
+          🔒
+        </div>
+
+        <h3>
+          {{ isArabic ? 'طلبات آمنة' : 'Secure Orders' }}
+        </h3>
+
+        <p>
+          {{ isArabic
+            ? 'نتعامل مع طلباتك بعناية.'
+            : 'Your orders are handled with care.'
+          }}
+        </p>
+
+      </div>
+
+
+      <div class="feature">
+
+        <div class="feature-icon">
+          💚
+        </div>
+
+        <h3>
+          {{ isArabic ? 'عملية سهلة' : 'Easy Process' }}
+        </h3>
+
+        <p>
+          {{ isArabic
+            ? 'اطلب بسهولة من السعودية إلى مصر.'
+            : 'Simple ordering from KSA directly to Egypt.'
+          }}
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= CONTACT US ================= -->
+
+    <section
+      class="contact-section"
+      id="contact"
+    >
+
+      <div class="section-heading">
+
+        <span>
+          ✦
+          {{ isArabic ? 'كيفية التواصل معنا' : 'HOW TO CONTACT US' }}
+        </span>
+
+
+        <h2>
+
+          {{ isArabic
+            ? 'نحن هنا'
+            : "We're here to"
+          }}
+
+          <strong>
+
+            {{ isArabic
+              ? 'لمساعدتك!'
+              : 'help you!'
+            }}
+
+          </strong>
+
+        </h2>
+
+
+        <p class="contact-description">
+
+          {{ isArabic
+            ? 'تواصل معنا من خلال أي من منصات التواصل الاجتماعي الخاصة بنا.'
+            : 'Reach out to us through any of our social media platforms.'
+          }}
+
+        </p>
+
+      </div>
+
+
+      <div class="contact-links">
+
+        <!-- Instagram -->
+
+        <a
+          href="https://www.instagram.com/ghandoura1store?stkn=MWVvOXFoYno0MjV0dw=="
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact-card"
+        >
+
+          <div class="contact-icon instagram-icon">
+
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+
+              <rect
+                x="3"
+                y="3"
+                width="18"
+                height="18"
+                rx="5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+
+              <circle
+                cx="12"
+                cy="12"
+                r="4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+
+              <circle
+                cx="17.5"
+                cy="6.5"
+                r="1"
+                fill="currentColor"
+              />
+
+            </svg>
+
+          </div>
+
+
+          <div>
+
+            <h3>
+              Instagram
+            </h3>
+
+            <p>
+              @ghandoura1store
+            </p>
+
+          </div>
+
+        </a>
+
+
+        <!-- Facebook -->
+
+        <a
+          href="https://www.facebook.com/share/g/1L5Ay2RHgk/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact-card"
+        >
+
+          <div class="contact-icon facebook-icon">
+
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+
+              <path
+                d="M14 8h3V4h-3c-3.3 0-5 2-5 5v3H6v4h3v4h4v-4h3l1-4h-4V9c0-.7.3-1 1-1z"
+                fill="currentColor"
+              />
+
+            </svg>
+
+          </div>
+
+
+          <div>
+
+            <h3>
+              Facebook
+            </h3>
+
+            <p>
+              El Ghandoura Store
+            </p>
+
+          </div>
+
+        </a>
+
+
+        <!-- WhatsApp -->
+
+        <a
+          href="https://chat.whatsapp.com/KCR0DzgEGbPEnHWWtCmtlG?mode=gi_t"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact-card"
+        >
+
+          <div class="contact-icon whatsapp-icon">
+
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+
+              <path
+                d="M12 3a8.5 8.5 0 0 0-7.4 12.7L3 21l5.5-1.5A8.5 8.5 0 1 0 12 3z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+
+              <path
+                d="M8.5 8.5c.3-.4.6-.4.9-.1l1 1.1c.2.2.2.5 0 .8l-.5.6c.7 1.2 1.5 2 2.7 2.7l.6-.5c.3-.2.6-.2.8 0l1.1 1c.3.3.3.6-.1.9-.6.5-1.3.7-2 .5-2.8-.9-5.1-3.2-6-6-.2-.7 0-1.4.5-2z"
+                fill="currentColor"
+              />
+
+            </svg>
+
+          </div>
+
+
+          <div>
+
+            <h3>
+              WhatsApp
+            </h3>
+
+            <p>
+              {{ isArabic
+                ? 'انضم إلى جروب الواتساب'
+                : 'Join our WhatsApp group'
+              }}
+            </p>
+
+          </div>
+
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

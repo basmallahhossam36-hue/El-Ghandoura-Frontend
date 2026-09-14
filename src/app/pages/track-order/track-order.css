@@ -1,0 +1,297 @@
+.track-page {
+  min-height: 100vh;
+  padding: 50px 20px;
+  box-sizing: border-box;
+  background: #e8f7ec;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.track-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+
+/* ================= HEADER ================= */
+
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.small-title {
+  margin: 0 0 8px;
+  color: #10b981;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.page-header h1 {
+  margin: 0;
+  color: #0d2845;
+  font-size: 38px;
+}
+
+.subtitle {
+  margin: 12px 0 0;
+  color: #66736f;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+
+/* ================= SEARCH CARD ================= */
+
+.track-card {
+  padding: 30px;
+  margin-bottom: 25px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(13, 40, 69, 0.10);
+  border: 1px solid rgba(13, 40, 69, 0.08);
+}
+
+.track-card h2 {
+  margin: 0 0 25px;
+  color: #0d2845;
+  font-size: 24px;
+}
+
+.search-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #0d2845;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.search-input {
+  display: flex;
+  gap: 10px;
+}
+
+.search-input input {
+  min-width: 0;
+  flex: 1;
+  padding: 13px 14px;
+  border: 1px solid #d7e3df;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #0d2845;
+  outline: none;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.search-input input:focus {
+  border-color: #10b981;
+}
+
+.search-input button {
+  padding: 13px 20px;
+  border: none;
+  border-radius: 9px;
+  background: #0d2845;
+  color: #ffffff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.search-input button:hover {
+  background: #10b981;
+  transform: translateY(-1px);
+}
+
+
+/* ================= ORDER STATUS ================= */
+
+.order-status-card {
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(13, 40, 69, 0.10);
+  border: 1px solid rgba(13, 40, 69, 0.08);
+}
+
+.status-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.status-label {
+  margin: 0 0 7px;
+  color: #10b981;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.status-header h2 {
+  margin: 0;
+  color: #0d2845;
+  font-size: 24px;
+}
+
+.status-badge {
+  padding: 8px 15px;
+  border-radius: 20px;
+  background: #fff4d6;
+  color: #9a7010;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.status-line {
+  height: 1px;
+  margin: 25px 0;
+  background: #d7e3df;
+}
+
+
+/* ================= STATUS STEPS ================= */
+
+.status-steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.status-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  position: relative;
+  padding-bottom: 28px;
+}
+
+.status-step:last-child {
+  padding-bottom: 0;
+}
+
+.status-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 40px;
+  width: 2px;
+  height: calc(100% - 20px);
+  background: #d7e3df;
+}
+
+.status-icon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f3f8f5;
+  color: #9aa9a5;
+  font-size: 15px;
+  font-weight: 700;
+  border: 2px solid #d7e3df;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+.status-step.active .status-icon {
+  background: #10b981;
+  border-color: #10b981;
+  color: #ffffff;
+}
+
+.status-step.active:not(:last-child)::after {
+  background: #10b981;
+}
+
+.status-step h3 {
+  margin: 3px 0 6px;
+  color: #0d2845;
+  font-size: 18px;
+}
+
+.status-step p {
+  margin: 0;
+  color: #66736f;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 600px) {
+
+  .track-page {
+    padding: 30px 15px;
+  }
+
+  .page-header h1 {
+    font-size: 30px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+  }
+
+  .track-card,
+  .order-status-card {
+    padding: 20px;
+  }
+
+  .track-card h2,
+  .status-header h2 {
+    font-size: 21px;
+  }
+
+  .search-input {
+    flex-direction: column;
+  }
+
+  .search-input button {
+    width: 100%;
+  }
+
+  .status-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+}
+.order-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  padding: 5px 0;
+}
+
+.order-info > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.order-info span {
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+.order-info strong {
+  color: #0d2845;
+  font-size: 15px;
+}
+
+@media (max-width: 600px) {
+  .order-info {
+    grid-template-columns: 1fr;
+  }
+}

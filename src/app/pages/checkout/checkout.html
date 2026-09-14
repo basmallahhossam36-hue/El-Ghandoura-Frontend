@@ -1,0 +1,373 @@
+<div
+  class="checkout-page"
+  [dir]="isArabic ? 'rtl' : 'ltr'"
+>
+
+  <div class="checkout-container">
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="page-header">
+
+      <p class="small-title">
+        ELGHANDOURA STORE
+      </p>
+
+      <h1>
+        {{ isArabic ? 'إتمام الطلب' : 'Place Your Order' }}
+      </h1>
+
+      <p class="subtitle">
+        {{
+          isArabic
+            ? 'أدخل بياناتك لإكمال طلبك.'
+            : 'Enter your information to complete your order.'
+        }}
+      </p>
+
+    </div>
+
+
+    <!-- ================= CONTENT ================= -->
+
+    <div class="checkout-content">
+
+
+      <!-- ================= CUSTOMER INFORMATION ================= -->
+
+      <div class="checkout-card">
+
+        <h2>
+          {{
+            isArabic
+              ? 'بيانات العميل'
+              : 'Customer Information'
+          }}
+        </h2>
+
+
+        <form
+          [formGroup]="checkoutForm"
+          (ngSubmit)="placeOrder()"
+        >
+
+
+          <!-- NAME -->
+
+          <div class="form-group">
+
+            <label>
+              {{
+                isArabic
+                  ? 'الاسم بالكامل'
+                  : 'Full Name'
+              }}
+            </label>
+
+            <input
+              type="text"
+              formControlName="name"
+              [placeholder]="
+                isArabic
+                  ? 'أدخل اسمك بالكامل'
+                  : 'Enter your full name'
+              "
+            >
+
+            @if (
+              checkoutForm.controls.name.invalid &&
+              checkoutForm.controls.name.touched
+            ) {
+
+              <small class="error-message">
+                {{
+                  isArabic
+                    ? 'من فضلك أدخل اسمك.'
+                    : 'Please enter your name.'
+                }}
+              </small>
+
+            }
+
+          </div>
+
+
+          <!-- EMAIL -->
+
+          <div class="form-group">
+
+            <label>
+              {{
+                isArabic
+                  ? 'البريد الإلكتروني'
+                  : 'Email'
+              }}
+            </label>
+
+            <input
+              type="email"
+              formControlName="email"
+              [placeholder]="
+                isArabic
+                  ? 'أدخل بريدك الإلكتروني'
+                  : 'Enter your email'
+              "
+            >
+
+            @if (
+              checkoutForm.controls.email.invalid &&
+              checkoutForm.controls.email.touched
+            ) {
+
+              <small class="error-message">
+                {{
+                  isArabic
+                    ? 'من فضلك أدخل بريدًا إلكترونيًا صحيحًا.'
+                    : 'Please enter a valid email.'
+                }}
+              </small>
+
+            }
+
+          </div>
+
+
+          <!-- PHONE -->
+
+          <div class="form-group">
+
+            <label>
+              {{
+                isArabic
+                  ? 'رقم الهاتف'
+                  : 'Phone Number'
+              }}
+            </label>
+
+            <input
+              type="tel"
+              formControlName="phone"
+              [placeholder]="
+                isArabic
+                  ? 'أدخل رقم هاتفك'
+                  : 'Enter your phone number'
+              "
+            >
+
+            @if (
+              checkoutForm.controls.phone.invalid &&
+              checkoutForm.controls.phone.touched
+            ) {
+
+              <small class="error-message">
+                {{
+                  isArabic
+                    ? 'من فضلك أدخل رقم هاتف صحيح.'
+                    : 'Please enter a valid phone number.'
+                }}
+              </small>
+
+            }
+
+          </div>
+
+
+          <!-- ADDRESS -->
+
+          <div class="form-group">
+
+            <label>
+              {{
+                isArabic
+                  ? 'العنوان'
+                  : 'Address'
+              }}
+            </label>
+
+            <textarea
+              rows="4"
+              formControlName="address"
+              [placeholder]="
+                isArabic
+                  ? 'أدخل عنوان التوصيل'
+                  : 'Enter your delivery address'
+              "
+            ></textarea>
+
+            @if (
+              checkoutForm.controls.address.invalid &&
+              checkoutForm.controls.address.touched
+            ) {
+
+              <small class="error-message">
+                {{
+                  isArabic
+                    ? 'من فضلك أدخل عنوان التوصيل.'
+                    : 'Please enter your delivery address.'
+                }}
+              </small>
+
+            }
+
+          </div>
+
+
+          <!-- MOBILE BUTTON -->
+
+          <button
+            type="submit"
+            class="place-order-button mobile-place-order"
+          >
+            {{
+              isArabic
+                ? 'تأكيد الطلب'
+                : 'Place Order'
+            }}
+          </button>
+
+        </form>
+
+      </div>
+
+
+      <!-- ================= ORDER SUMMARY ================= -->
+
+      <div class="checkout-summary">
+
+        <h2>
+          {{
+            isArabic
+              ? 'ملخص الطلب'
+              : 'Order Summary'
+          }}
+        </h2>
+
+
+        <!-- PRODUCTS COUNT -->
+
+        <div class="summary-row">
+
+          <span>
+            {{
+              isArabic
+                ? 'المنتجات'
+                : 'Products'
+            }}
+          </span>
+
+          <span>
+            {{ cartCount }}
+            {{
+              isArabic
+                ? 'منتجات'
+                : (cartCount === 1 ? 'Item' : 'Items')
+            }}
+          </span>
+
+        </div>
+
+
+        <!-- PRODUCT NAMES -->
+
+        @for (product of cartItems; track $index) {
+
+          <div class="summary-row">
+
+            <span>
+              {{ product.name }}
+            </span>
+
+            <span>
+              {{ product.price }}
+            </span>
+
+          </div>
+
+        }
+
+
+        <!-- SUBTOTAL -->
+
+        <div class="summary-row">
+
+          <span>
+            {{
+              isArabic
+                ? 'المجموع الفرعي'
+                : 'Subtotal'
+            }}
+          </span>
+
+          <span>
+            {{ formattedSubtotal }}
+          </span>
+
+        </div>
+
+
+        <!-- DELIVERY -->
+
+        <div class="summary-row">
+
+          <span>
+            {{
+              isArabic
+                ? 'التوصيل'
+                : 'Delivery'
+            }}
+          </span>
+
+          <span>
+            {{
+              isArabic
+                ? 'سيتم التأكيد'
+                : 'To be confirmed'
+            }}
+          </span>
+
+        </div>
+
+
+        <div class="summary-line"></div>
+
+
+        <!-- TOTAL -->
+
+        <div class="total-row">
+
+          <span>
+            {{
+              isArabic
+                ? 'الإجمالي'
+                : 'Total'
+            }}
+          </span>
+
+          <span>
+            {{ formattedSubtotal }}
+          </span>
+
+        </div>
+
+
+        <!-- DESKTOP BUTTON -->
+
+        <button
+          type="button"
+          class="place-order-button desktop-place-order"
+          (click)="placeOrder()"
+        >
+          {{
+            isArabic
+              ? 'تأكيد الطلب'
+              : 'Place Order'
+          }}
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

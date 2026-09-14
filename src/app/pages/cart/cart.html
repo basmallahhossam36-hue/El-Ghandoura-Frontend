@@ -1,0 +1,287 @@
+<div class="cart-page" [dir]="isArabic ? 'rtl' : 'ltr'">
+
+  <div class="cart-container">
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="page-header">
+
+      <p class="small-title">
+        ELGHANDOURA STORE
+      </p>
+
+      <h1>
+        {{ isArabic ? 'سلة التسوق' : 'Shopping Cart' }}
+      </h1>
+
+      <p class="subtitle">
+        {{
+          isArabic
+            ? 'راجع المنتجات الموجودة في سلتك قبل إتمام الطلب.'
+            : 'Review the products in your cart before placing your order.'
+        }}
+      </p>
+
+    </div>
+
+
+    <!-- ================= EMPTY CART ================= -->
+
+    @if (cartItems.length === 0) {
+
+      <div class="empty-cart">
+
+        <div class="empty-icon">
+          🛒
+        </div>
+
+        <h2>
+          {{ isArabic ? 'السلة فارغة' : 'Your Cart is Empty' }}
+        </h2>
+
+        <p>
+          {{
+            isArabic
+              ? 'لم تقم بإضافة أي منتجات إلى السلة بعد.'
+              : 'You have not added any products to your cart yet.'
+          }}
+        </p>
+
+        <a
+          routerLink="/products"
+          class="continue-shopping-button"
+        >
+          {{
+            isArabic
+              ? 'تصفح المنتجات'
+              : 'Browse Products'
+          }}
+        </a>
+
+      </div>
+
+    }
+
+
+    <!-- ================= CART CONTENT ================= -->
+
+    @else {
+
+      <div class="cart-content">
+
+        <!-- ================= PRODUCTS ================= -->
+
+        <div class="cart-products">
+
+          <div class="cart-products-header">
+
+            <div>
+              <p class="small-title">
+                {{ isArabic ? 'منتجاتك' : 'YOUR PRODUCTS' }}
+              </p>
+
+              <h2>
+                {{ isArabic ? 'المنتجات' : 'Products' }}
+              </h2>
+            </div>
+
+            <span class="items-count">
+              {{ cartCount }}
+              {{
+                isArabic
+                  ? (cartCount === 1 ? 'منتج' : 'منتجات')
+                  : (cartCount === 1 ? 'Item' : 'Items')
+              }}
+            </span>
+
+          </div>
+
+
+          <div class="cart-items">
+
+            @for (product of cartItems; track $index) {
+
+              <div class="cart-item">
+
+                <!-- IMAGE -->
+
+                <div class="cart-item-image">
+
+                  @if (product.images.length > 0) {
+
+                    <img
+                      [src]="
+                        'http://localhost:3000' +
+                        product.images[0]
+                      "
+                      [alt]="product.name"
+                    >
+
+                  } @else {
+
+                    <span>
+                      {{ isArabic ? 'لا توجد صورة' : 'No Image' }}
+                    </span>
+
+                  }
+
+                </div>
+
+
+                <!-- INFO -->
+
+                <div class="cart-item-info">
+
+                  <h3>
+                    {{ product.name }}
+                  </h3>
+
+                  <p>
+                    {{ product.description }}
+                  </p>
+
+                  <strong>
+                    {{ product.price }}
+                  </strong>
+
+                </div>
+
+
+                <!-- REMOVE -->
+
+                <button
+                  type="button"
+                  class="remove-button"
+                  (click)="removeItem($index)"
+                >
+                  {{ isArabic ? 'حذف' : 'Remove' }}
+                </button>
+
+              </div>
+
+            }
+
+          </div>
+
+
+          <!-- CLEAR CART -->
+
+          <div class="cart-actions">
+
+            <button
+              type="button"
+              class="clear-cart-button"
+              (click)="clearCart()"
+            >
+              {{ isArabic ? 'إفراغ السلة' : 'Clear Cart' }}
+            </button>
+
+            <a
+              routerLink="/products"
+              class="continue-shopping-link"
+            >
+              {{
+                isArabic
+                  ? '← متابعة التسوق'
+                  : '← Continue Shopping'
+              }}
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================= SUMMARY ================= -->
+
+        <div class="cart-summary">
+
+          <h2>
+            {{ isArabic ? 'ملخص الطلب' : 'Order Summary' }}
+          </h2>
+
+
+          <div class="summary-row">
+
+            <span>
+              {{ isArabic ? 'المنتجات' : 'Products' }}
+            </span>
+
+            <span>
+              {{ cartCount }}
+              {{
+                isArabic
+                  ? (cartCount === 1 ? 'منتج' : 'منتجات')
+                  : (cartCount === 1 ? 'Item' : 'Items')
+              }}
+            </span>
+
+          </div>
+
+
+          <div class="summary-row">
+
+            <span>
+              {{ isArabic ? 'المجموع الفرعي' : 'Subtotal' }}
+            </span>
+
+            <span>
+              {{ formattedSubtotal }}
+            </span>
+
+          </div>
+
+
+          <div class="summary-row">
+
+            <span>
+              {{ isArabic ? 'التوصيل' : 'Delivery' }}
+            </span>
+
+            <span>
+              {{
+                isArabic
+                  ? 'سيتم التأكيد'
+                  : 'To be confirmed'
+              }}
+            </span>
+
+          </div>
+
+
+          <div class="summary-line"></div>
+
+
+          <div class="total-row">
+
+            <span>
+              {{ isArabic ? 'الإجمالي' : 'Total' }}
+            </span>
+
+            <span>
+              {{ formattedSubtotal }}
+            </span>
+
+          </div>
+
+
+          <a
+            routerLink="/checkout"
+            class="checkout-button"
+          >
+            {{
+              isArabic
+                ? 'إتمام الطلب'
+                : 'Proceed to Order'
+            }}
+          </a>
+
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+
+</div>

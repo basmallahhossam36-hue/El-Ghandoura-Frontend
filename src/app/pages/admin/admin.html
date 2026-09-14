@@ -1,0 +1,88 @@
+<div class="admin-page">
+
+  <div class="admin-header">
+
+    <div>
+      <span class="store-label">
+        ELGHANDOURA STORE
+      </span>
+
+      <h1>
+        Admin Dashboard
+      </h1>
+
+      <p>
+        Manage your store products and customer orders.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div class="admin-cards">
+
+    <a
+      routerLink="/admin/products"
+      class="admin-card"
+    >
+
+      <div class="card-icon">
+        📦
+      </div>
+
+      <div class="card-content">
+
+        <h2>
+          Manage Products
+        </h2>
+
+        <p>
+          Add, edit, and delete products from your store.
+        </p>
+
+        <span class="card-link">
+          Go to Products →
+        </span>
+
+      </div>
+
+    </a>
+
+
+    <a
+      routerLink="/admin/orders"
+      class="admin-card"
+    >
+
+      <div class="card-icon">
+        🛍️
+      </div>
+
+      <div class="card-content">
+
+        <h2>
+          Manage Orders
+        </h2>
+
+        <p>
+          View customer orders and update their status.
+        </p>
+
+        <span class="card-link">
+          Go to Orders →
+        </span>
+
+      </div>
+
+    </a>
+
+  </div>
+
+
+  <div class="admin-content">
+
+    <router-outlet></router-outlet>
+
+  </div>
+
+</div>

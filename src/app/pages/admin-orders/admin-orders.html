@@ -1,0 +1,182 @@
+<div class="admin-orders-page">
+
+  <div class="orders-intro">
+    <span class="store-label">ELGHANDOURA STORE</span>
+
+    <h1>Manage Orders</h1>
+
+    <p>
+      View and manage customer orders.
+    </p>
+  </div>
+
+
+  <div class="orders-panel">
+
+    <div class="orders-panel-header">
+
+      <h2>All Orders</h2>
+
+      <div class="filter-area">
+
+        <label for="status">
+          Filter by Status
+        </label>
+
+        <select
+          id="status"
+          [(ngModel)]="selectedStatus"
+          (change)="filterOrders()"
+        >
+          <option value="All">All Orders</option>
+          <option value="Pending">Pending</option>
+          <option value="Confirmed">Confirmed</option>
+          <option value="Preparing">Preparing</option>
+          <option value="Reached KSA">Reached KSA</option>
+          <option value="Shipped">Shipped</option>
+          <option value="Reached Egypt">Reached Egypt</option>
+          <option value="Delivered">Delivered</option>
+        </select>
+
+      </div>
+
+    </div>
+
+
+    @if (loading) {
+
+      <div class="empty-state">
+        <h3>Loading orders...</h3>
+      </div>
+
+    } @else {
+
+      @if (filteredOrders.length > 0) {
+
+        <div class="orders-list">
+
+          @for (order of filteredOrders; track order._id) {
+
+            <div class="order-item">
+
+              <div class="order-details">
+
+                <div class="detail">
+                  <span>Customer</span>
+                  <strong>
+                    {{ order.customerName }}
+                  </strong>
+                </div>
+
+                <div class="detail">
+                  <span>Product</span>
+                  <strong>
+                    {{ order.productName }}
+                  </strong>
+                </div>
+
+                <div class="detail">
+                  <span>Quantity</span>
+                  <strong>
+                    {{ order.quantity }}
+                  </strong>
+                </div>
+
+                <div class="detail">
+                  <span>Total</span>
+                  <strong>
+                    {{ order.totalPrice }}
+                  </strong>
+                </div>
+
+                <div class="detail">
+                  <span>Date</span>
+                  <strong>
+                    {{ order.orderDate | date:'dd/MM/yyyy' }}
+                  </strong>
+                </div>
+
+              </div>
+
+
+              <div class="order-actions">
+
+                <div class="status-control">
+
+                  <label>
+                    Status
+                  </label>
+
+                  <select
+                    [value]="order.status || 'Pending'"
+                    (change)="updateStatus(order, $event)"
+                  >
+                    <option value="Pending">
+                      Pending
+                    </option>
+
+                    <option value="Confirmed">
+                      Confirmed
+                    </option>
+
+                    <option value="Preparing">
+                      Preparing
+                    </option>
+
+                    <option value="Reached KSA">
+                      Reached KSA
+                    </option>
+
+                    <option value="Shipped">
+                      Shipped
+                    </option>
+
+                    <option value="Reached Egypt">
+                      Reached Egypt
+                    </option>
+
+                    <option value="Delivered">
+                      Delivered
+                    </option>
+                  </select>
+
+                </div>
+
+
+                <button
+                  type="button"
+                  class="delete-btn"
+                  (click)="deleteOrder(order)"
+                >
+                  Delete
+                </button>
+
+              </div>
+
+            </div>
+
+          }
+
+        </div>
+
+      } @else {
+
+        <div class="empty-state">
+
+          <h3>
+            No orders found.
+          </h3>
+
+          <p>
+            There are no orders yet.
+          </p>
+
+        </div>
+
+      }
+
+    }
+
+  </div>
+
+</div>
