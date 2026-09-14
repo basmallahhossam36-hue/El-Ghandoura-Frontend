@@ -26,7 +26,7 @@ export class AuthService {
 
   private http = inject(HttpClient);
 
-private apiUrl = 'https://elghandoura-auth-3m87icez.b4a.run/auth';
+private apiUrl = 'https://elghandoura-auth-yu0fp5w6.b4a.run/auth';
 
   signup(data: SignupData): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(
