@@ -46,7 +46,8 @@ export class OrderService {
 
   private http = inject(HttpClient);
 
-  private apiUrl = 'https://elghandourabackend-h7dvoox9.b4a.run/orders';
+  private apiUrl = 'https://elghandourabackend1-f06md7r7.b4a.run/order';
+
   createOrder(
     data: CreateOrderData
   ): Observable<CreateOrderResponse> {

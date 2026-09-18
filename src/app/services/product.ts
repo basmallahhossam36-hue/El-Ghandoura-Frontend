@@ -17,7 +17,7 @@ export class ProductService {
 
   private http = inject(HttpClient);
 
-private apiUrl = 'https://elghandourabackend-h7dvoox9.b4a.run/products';
+private apiUrl = 'https://elghandourabackend1-f06md7r7.b4a.run/products';
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.apiUrl);
   }
