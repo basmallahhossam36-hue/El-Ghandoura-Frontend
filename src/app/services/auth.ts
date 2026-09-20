@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface AuthResponse {
@@ -25,18 +25,39 @@ export interface LoginData {
 export class AuthService {
   private http = inject(HttpClient);
 
-private apiUrl = 'https://elghandouraauth-xei7swai.b4a.run/auth';
+  private apiUrl = 'https://elghandouraauth-xei7swai.b4a.run/auth';
+
   signup(data: SignupData): Observable<AuthResponse> {
+    const body = new HttpParams()
+      .set('name', data.name)
+      .set('email', data.email)
+      .set('password', data.password)
+      .set('phone', data.phone);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+
     return this.http.post<AuthResponse>(
       `${this.apiUrl}/signup`,
-      data
+      body.toString(),
+      { headers }
     );
   }
 
   login(data: LoginData): Observable<AuthResponse> {
+    const body = new HttpParams()
+      .set('email', data.email)
+      .set('password', data.password);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+
     return this.http.post<AuthResponse>(
       `${this.apiUrl}/login`,
-      data
+      body.toString(),
+      { headers }
     );
   }
 
