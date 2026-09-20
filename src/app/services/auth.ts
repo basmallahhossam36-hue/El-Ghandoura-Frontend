@@ -25,8 +25,7 @@ export interface LoginData {
 export class AuthService {
   private http = inject(HttpClient);
 
-  private apiUrl = 'https://elghandouraauth-2hqnfu0.b4a.run/auth';
-
+private apiUrl = 'https://elghandouraauth-xei7swai.b4a.run/auth';
   signup(data: SignupData): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(
       `${this.apiUrl}/signup`,
