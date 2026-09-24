@@ -17,7 +17,7 @@ export class ProductService {
 
   private http = inject(HttpClient);
 
-private apiUrl = 'https://elghandourabackend1-hhz2vvoy.b4a.run/products';
+private apiUrl = 'https://final-nti-83xh.vercel.app/products';
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.apiUrl);
   }

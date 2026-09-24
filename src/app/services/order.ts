@@ -46,7 +46,7 @@ export class OrderService {
 
   private http = inject(HttpClient);
 
-private apiUrl = 'https://elghandourabackend1-hhz2vvoy.b4a.run/orders';
+private apiUrl = 'https://final-nti-83xh.vercel.app/orders';
   createOrder(
     data: CreateOrderData
   ): Observable<CreateOrderResponse> {
