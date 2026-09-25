@@ -18,8 +18,10 @@
 
               <img
                 [src]="
-                  'http://localhost:3000' +
-                  currentProduct.images[currentImageIndex]
+                  currentProduct.images[currentImageIndex].startsWith('http')
+                    ? currentProduct.images[currentImageIndex]
+                    : 'https://final-nti-83xh.vercel.app' +
+                      currentProduct.images[currentImageIndex]
                 "
                 [alt]="currentProduct.name"
               >
@@ -79,7 +81,11 @@
                 >
 
                   <img
-                    [src]="'http://localhost:3000' + image"
+                    [src]="
+                      image.startsWith('http')
+                        ? image
+                        : 'https://final-nti-83xh.vercel.app' + image
+                    "
                     [alt]="currentProduct.name"
                   >
 

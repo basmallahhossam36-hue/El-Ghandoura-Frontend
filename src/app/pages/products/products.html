@@ -37,7 +37,12 @@
             @if (product.images.length > 0) {
 
               <img
-                [src]="product.images[currentImageIndexes[product._id!] ?? 0]"
+                [src]="
+                  product.images[currentImageIndexes[product._id!] ?? 0].startsWith('http')
+                    ? product.images[currentImageIndexes[product._id!] ?? 0]
+                    : 'https://final-nti-83xh.vercel.app' +
+                      product.images[currentImageIndexes[product._id!] ?? 0]
+                "
                 [alt]="product.name"
               >
 
