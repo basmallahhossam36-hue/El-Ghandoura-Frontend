@@ -176,8 +176,17 @@
         <div class="step-content">
 
           <h2>
-            {{ isArabic ? 'المشاركة عبر واتساب' : 'Share on WhatsApp https://chat.whatsapp.com/KCR0DzgEGbPEnHWWtCmtlG?mode=gi_t' }}
-          </h2>
+  {{ isArabic ? 'المشاركة عبر واتساب' : 'Share on WhatsApp' }}
+</h2>
+
+<a
+  href="https://chat.whatsapp.com/KCR0DzgEGbPEnHWWtCmtlG?mode=gi_t"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="whatsapp-link"
+>
+  {{ isArabic ? 'فتح مجموعة واتساب' : 'Open WhatsApp Group' }}
+</a>
 
           <p>
             {{
