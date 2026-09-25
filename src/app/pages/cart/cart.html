@@ -76,6 +76,7 @@
           <div class="cart-products-header">
 
             <div>
+
               <p class="small-title">
                 {{ isArabic ? 'منتجاتك' : 'YOUR PRODUCTS' }}
               </p>
@@ -83,19 +84,25 @@
               <h2>
                 {{ isArabic ? 'المنتجات' : 'Products' }}
               </h2>
+
             </div>
 
             <span class="items-count">
+
               {{ cartCount }}
+
               {{
                 isArabic
                   ? (cartCount === 1 ? 'منتج' : 'منتجات')
                   : (cartCount === 1 ? 'Item' : 'Items')
               }}
+
             </span>
 
           </div>
 
+
+          <!-- ================= CART ITEMS ================= -->
 
           <div class="cart-items">
 
@@ -110,11 +117,7 @@
                   @if (product.images.length > 0) {
 
                     <img
-                      [src]="
-                    : 'https://final-nti-83xh.vercel.app' +
-                         +
-                        product.images[0]
-                      "
+                      [src]="product.images[0]"
                       [alt]="product.name"
                     >
 
@@ -165,7 +168,7 @@
           </div>
 
 
-          <!-- CLEAR CART -->
+          <!-- ================= CART ACTIONS ================= -->
 
           <div class="cart-actions">
 
@@ -209,12 +212,15 @@
             </span>
 
             <span>
+
               {{ cartCount }}
+
               {{
                 isArabic
                   ? (cartCount === 1 ? 'منتج' : 'منتجات')
                   : (cartCount === 1 ? 'Item' : 'Items')
               }}
+
             </span>
 
           </div>
