@@ -37,10 +37,7 @@
             @if (product.images.length > 0) {
 
               <img
-                [src]="
-                  'http://localhost:3000' +
-                  product.images[currentImageIndexes[product._id!] ?? 0]
-                "
+                [src]="product.images[currentImageIndexes[product._id!] ?? 0]"
                 [alt]="product.name"
               >
 

@@ -840,3 +840,242 @@ nav a:hover {
   font-weight: 700;
   line-height: 1;
 }
+/* ================= MOBILE RESPONSIVE ================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.page {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ---------- NAVBAR ---------- */
+
+.navbar {
+  width: 100%;
+}
+
+.nav-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px 25px;
+}
+
+@media (max-width: 768px) {
+
+  .nav-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 12px;
+  }
+
+  .logo {
+    width: 100%;
+    justify-content: center;
+  }
+
+  nav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  nav a {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .auth-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* ---------- HERO ---------- */
+
+  .hero {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 50px 20px;
+  }
+
+  .hero-content {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .hero h1 {
+    font-size: 42px;
+    line-height: 1.15;
+  }
+
+  .hero p {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .hero-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .hero-visual {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 35px;
+  }
+
+  .hero-map-image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* ---------- HOW IT WORKS ---------- */
+
+  .how-section,
+  .stores-section,
+  .features-section,
+  .contact-section {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+  }
+
+  .step {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+
+  .step-line {
+    display: none;
+  }
+
+  /* ---------- STORES ---------- */
+
+  .stores {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .store-card {
+    width: 100%;
+  }
+
+  /* ---------- FEATURES ---------- */
+
+  .features-section {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .feature {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* ---------- CONTACT ---------- */
+
+  .contact-links {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .contact-card {
+    width: 100%;
+  }
+}
+
+
+/* ---------- SMALL PHONES ---------- */
+
+@media (max-width: 480px) {
+
+  .nav-container {
+    padding: 12px 10px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  nav {
+    gap: 7px;
+  }
+
+  nav a {
+    font-size: 12px;
+  }
+
+  .auth-buttons {
+    gap: 7px;
+  }
+
+  .hero {
+    padding: 35px 15px;
+  }
+
+  .hero h1 {
+    font-size: 34px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-buttons a,
+  .primary-btn,
+  .secondary-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .stores {
+    grid-template-columns: 1fr;
+  }
+
+  .section-heading h2 {
+    font-size: 30px;
+  }
+}
