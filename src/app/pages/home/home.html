@@ -46,6 +46,12 @@
           }
         </a>
 
+        <!-- MY ORDERS -->
+
+        <a routerLink="/orders">
+          {{ isArabic ? 'طلباتي' : 'My Orders' }}
+        </a>
+
         <a href="#about">
           {{ isArabic ? 'من نحن' : 'About Us' }}
         </a>
@@ -221,10 +227,12 @@
           <br>
 
           <strong>
+
             {{ isArabic
               ? 'الأمر بهذه السهولة!'
               : "it's that simple!"
             }}
+
           </strong>
 
         </h2>

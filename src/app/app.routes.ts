@@ -24,6 +24,8 @@ import { TrackOrder } from './pages/track-order/track-order';
 
 import { AdminOrders } from './pages/admin-orders/admin-orders';
 
+import { Orders } from './pages/orders/orders';
+
 import { authGuard } from './guards/auth-guard';
 
 import { adminGuard } from './guards/admin-guard-guard';
@@ -89,6 +91,12 @@ export const routes: Routes = [
   {
     path: 'checkout',
     component: Checkout,
+    canActivate: [authGuard]
+  },
+
+  {
+    path: 'orders',
+    component: Orders,
     canActivate: [authGuard]
   },
 

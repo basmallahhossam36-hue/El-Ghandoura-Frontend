@@ -1,0 +1,396 @@
+<div class="orders-page" [dir]="isArabic ? 'rtl' : 'ltr'">
+
+  <!-- ================= NAVBAR ================= -->
+
+  <header class="navbar">
+
+    <div class="nav-container">
+
+      <!-- LOGO -->
+
+      <a
+        routerLink="/"
+        class="logo"
+      >
+
+        <span class="logo-box">
+          📦
+        </span>
+
+        <span class="logo-text">
+          ELGHANDOURA
+          <small>STORE</small>
+        </span>
+
+      </a>
+
+
+      <!-- NAVIGATION -->
+
+      <nav>
+
+        <a routerLink="/">
+          {{ isArabic ? 'الرئيسية' : 'Home' }}
+        </a>
+
+        <a routerLink="/products">
+          {{ isArabic ? 'المنتجات' : 'Products' }}
+        </a>
+
+        <a routerLink="/cart">
+          {{ isArabic ? 'السلة' : 'Cart' }}
+        </a>
+
+        <a routerLink="/orders" class="active">
+          {{ isArabic ? 'طلباتي' : 'My Orders' }}
+        </a>
+
+        <a href="/#about">
+          {{ isArabic ? 'من نحن' : 'About Us' }}
+        </a>
+
+        <a href="/#how-it-works">
+          {{ isArabic ? 'كيف تعمل' : 'How It Works' }}
+        </a>
+
+      </nav>
+
+
+      <!-- RIGHT BUTTONS -->
+
+      <div class="auth-buttons">
+
+        <a
+          routerLink="/orders"
+          class="orders-btn"
+        >
+          {{ isArabic ? 'طلباتي' : 'My Orders' }}
+        </a>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- ================= PAGE HEADER ================= -->
+
+  <main>
+
+    <section class="orders-section">
+
+      <div class="section-heading">
+
+        <span>
+          ELGHANDOURA STORE
+        </span>
+
+        <h1>
+          {{ isArabic ? 'طلباتي' : 'My' }}
+
+          <strong>
+            {{ isArabic ? '' : ' Orders' }}
+          </strong>
+        </h1>
+
+        <p>
+          {{
+            isArabic
+              ? 'شاهد وتتبع جميع طلباتك في مكان واحد.'
+              : 'View and track all your orders in one place.'
+          }}
+        </p>
+
+      </div>
+
+
+      <!-- ================= LOADING ================= -->
+
+      @if (loading) {
+
+        <div class="loading-container">
+
+          <div class="loader"></div>
+
+          <p>
+            {{
+              isArabic
+                ? 'جاري تحميل طلباتك...'
+                : 'Loading your orders...'
+            }}
+          </p>
+
+        </div>
+
+      }
+
+
+      <!-- ================= ERROR ================= -->
+
+      @if (!loading && errorMessage) {
+
+        <div class="error-container">
+
+          <div class="error-icon">
+            !
+          </div>
+
+          <h2>
+            {{
+              isArabic
+                ? 'حدث خطأ ما'
+                : 'Something went wrong'
+            }}
+          </h2>
+
+          <p>
+            {{ errorMessage }}
+          </p>
+
+          <button
+            type="button"
+            class="retry-btn"
+            (click)="loadOrders()"
+          >
+            {{
+              isArabic
+                ? 'حاول مرة أخرى'
+                : 'Try Again'
+            }}
+          </button>
+
+        </div>
+
+      }
+
+
+      <!-- ================= EMPTY ================= -->
+
+      @if (!loading && !errorMessage && orders.length === 0) {
+
+        <div class="empty-container">
+
+          <div class="empty-icon">
+            🛍️
+          </div>
+
+          <h2>
+            {{
+              isArabic
+                ? 'لا توجد طلبات حتى الآن'
+                : 'No Orders Yet'
+            }}
+          </h2>
+
+          <p>
+            {{
+              isArabic
+                ? 'لم تقم بإجراء أي طلبات حتى الآن.'
+                : "You haven't placed any orders yet."
+            }}
+          </p>
+
+          <a
+            routerLink="/products"
+            class="shop-btn"
+          >
+            {{
+              isArabic
+                ? 'ابدأ التسوق'
+                : 'Start Shopping'
+            }}
+          </a>
+
+        </div>
+
+      }
+
+
+      <!-- ================= ORDERS ================= -->
+
+      @if (!loading && !errorMessage && orders.length > 0) {
+
+        <div class="orders-list">
+
+          @for (order of orders; track order._id) {
+
+            <article class="order-card">
+
+
+              <!-- ORDER TOP -->
+
+              <div class="order-top">
+
+                <div>
+
+                  <span class="order-label">
+                    {{ isArabic ? 'رقم الطلب' : 'ORDER ID' }}
+                  </span>
+
+                  <h3>
+                    #{{ order._id }}
+                  </h3>
+
+                </div>
+
+
+                <span
+                  class="status"
+                  [class]="getStatusClass(order.status)"
+                >
+                  {{ getStatusText(order.status) }}
+                </span>
+
+              </div>
+
+
+              <div class="divider"></div>
+
+
+              <!-- PRODUCT -->
+
+              <div class="product-section">
+
+                <div class="product-icon">
+                  📦
+                </div>
+
+                <div class="product-details">
+
+                  <span class="label">
+                    {{ isArabic ? 'المنتج' : 'Product' }}
+                  </span>
+
+                  <h2>
+                    {{ order.productName }}
+                  </h2>
+
+                </div>
+
+              </div>
+
+
+              <!-- ORDER DETAILS -->
+
+              <div class="order-details">
+
+
+                <div class="detail-box">
+
+                  <span class="label">
+                    {{ isArabic ? 'الكمية' : 'Quantity' }}
+                  </span>
+
+                  <strong>
+                    {{ order.quantity }}
+                  </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                  <span class="label">
+                    {{ isArabic ? 'الإجمالي' : 'Total' }}
+                  </span>
+
+                  <strong class="price">
+
+                    {{ order.totalPrice | number:'1.0-2' }}
+
+                    EGP
+
+                  </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                  <span class="label">
+                    {{ isArabic ? 'تاريخ الطلب' : 'Order Date' }}
+                  </span>
+
+                  <strong>
+                    {{ formatDate(order.orderDate) }}
+                  </strong>
+
+                </div>
+
+
+              </div>
+
+
+              <!-- DELIVERY -->
+
+              <div class="delivery-section">
+
+                <div class="delivery-title">
+
+                  <span class="delivery-icon">
+                    📍
+                  </span>
+
+                  <h3>
+                    {{
+                      isArabic
+                        ? 'معلومات التوصيل'
+                        : 'Delivery Information'
+                    }}
+                  </h3>
+
+                </div>
+
+
+                <div class="delivery-info">
+
+                  <p>
+
+                    <span>
+                      {{ isArabic ? 'الاسم' : 'Name' }}
+                    </span>
+
+                    {{ order.customerName }}
+
+                  </p>
+
+
+                  <p>
+
+                    <span>
+                      {{ isArabic ? 'الهاتف' : 'Phone' }}
+                    </span>
+
+                    {{ order.phone }}
+
+                  </p>
+
+
+                  <p>
+
+                    <span>
+                      {{ isArabic ? 'العنوان' : 'Address' }}
+                    </span>
+
+                    {{ order.address }}
+
+                  </p>
+
+                </div>
+
+              </div>
+
+            </article>
+
+          }
+
+        </div>
+
+      }
+
+    </section>
+
+  </main>
+
+</div>
