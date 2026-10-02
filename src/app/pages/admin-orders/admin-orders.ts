@@ -10,7 +10,10 @@ import {
 @Component({
   selector: 'app-admin-orders',
   standalone: true,
-  imports: [FormsModule, DatePipe],
+  imports: [
+    FormsModule,
+    DatePipe
+  ],
   templateUrl: './admin-orders.html',
   styleUrl: './admin-orders.css'
 })
@@ -19,79 +22,110 @@ export class AdminOrders {
   private orderService = inject(OrderService);
 
   orders: Order[] = [];
+
   filteredOrders: Order[] = [];
 
   selectedStatus = 'All';
 
   loading = false;
 
+
+  // ================= INIT =================
+
   ngOnInit(): void {
+
     this.loadOrders();
+
   }
+
+
+  // ================= LOAD ALL ORDERS =================
 
   loadOrders(): void {
 
     this.loading = true;
 
-    this.orderService.getOrders().subscribe({
+    this.orderService
+      .getAllOrdersAdmin()
+      .subscribe({
 
-      next: (response) => {
+        next: (response) => {
 
-        console.log(
-          'ADMIN ORDERS RESPONSE:',
-          response
-        );
+          console.log(
+            'ADMIN ORDERS RESPONSE:',
+            response
+          );
 
-        const data: any = response;
+          const data: any = response;
 
-        this.orders = Array.isArray(data)
-          ? data
-          : (data.orders || []);
+          this.orders = Array.isArray(data)
+            ? data
+            : (data.orders || []);
 
-        console.log(
-          'ORDERS:',
-          this.orders
-        );
+          console.log(
+            'ALL ORDERS:',
+            this.orders
+          );
 
-        console.log(
-          'ORDERS COUNT:',
-          this.orders.length
-        );
+          console.log(
+            'ORDERS COUNT:',
+            this.orders.length
+          );
 
-        this.filteredOrders = [...this.orders];
+          this.filteredOrders = [
+            ...this.orders
+          ];
 
-        this.loading = false;
-      },
+          this.loading = false;
 
-      error: (error) => {
+        },
 
-        console.error(
-          'FAILED TO GET ORDERS:',
-          error
-        );
 
-        this.orders = [];
-        this.filteredOrders = [];
+        error: (error) => {
 
-        this.loading = false;
-      }
+          console.error(
+            'FAILED TO GET ADMIN ORDERS:',
+            error
+          );
 
-    });
+          this.orders = [];
+
+          this.filteredOrders = [];
+
+          this.loading = false;
+
+        }
+
+      });
+
   }
+
+
+  // ================= FILTER =================
 
   filterOrders(): void {
 
     if (this.selectedStatus === 'All') {
 
-      this.filteredOrders = [...this.orders];
+      this.filteredOrders = [
+        ...this.orders
+      ];
 
       return;
+
     }
 
-    this.filteredOrders = this.orders.filter(
-      order => order.status === this.selectedStatus
-    );
+    this.filteredOrders =
+      this.orders.filter(
+        order =>
+          order.status ===
+          this.selectedStatus
+      );
+
   }
+
+
+  // ================= UPDATE STATUS =================
 
   updateStatus(
     order: Order,
@@ -101,14 +135,18 @@ export class AdminOrders {
     const select =
       event.target as HTMLSelectElement;
 
-    const newStatus = select.value;
+    const newStatus =
+      select.value;
 
     if (!order._id) {
+
       return;
+
     }
 
+
     this.orderService
-      .updateOrder(
+      .updateOrderAdmin(
         order._id,
         {
           status: newStatus
@@ -123,11 +161,13 @@ export class AdminOrders {
             response
           );
 
-          order.status = newStatus;
+          order.status =
+            newStatus;
 
           this.filterOrders();
 
         },
+
 
         error: (error) => {
 
@@ -143,24 +183,40 @@ export class AdminOrders {
         }
 
       });
+
   }
 
-  deleteOrder(order: Order): void {
+
+  // ================= DELETE =================
+
+  deleteOrder(
+    order: Order
+  ): void {
 
     if (!order._id) {
+
       return;
+
     }
 
-    const confirmed = confirm(
-      `Delete order ${order._id}?`
-    );
+
+    const confirmed =
+      confirm(
+        `Delete order ${order._id}?`
+      );
+
 
     if (!confirmed) {
+
       return;
+
     }
 
+
     this.orderService
-      .deleteOrder(order._id)
+      .deleteOrderAdmin(
+        order._id
+      )
       .subscribe({
 
         next: () => {
@@ -170,13 +226,16 @@ export class AdminOrders {
             order._id
           );
 
-          this.orders = this.orders.filter(
-            item => item._id !== order._id
-          );
+          this.orders =
+            this.orders.filter(
+              item =>
+                item._id !== order._id
+            );
 
           this.filterOrders();
 
         },
+
 
         error: (error) => {
 
@@ -192,6 +251,7 @@ export class AdminOrders {
         }
 
       });
+
   }
 
 }
