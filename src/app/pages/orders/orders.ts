@@ -25,12 +25,15 @@ export class Orders implements OnInit {
 
   private languageService = inject(LanguageService);
 
+
   orders: Order[] = [];
 
-  // Loading is disabled so the page opens immediately
-  loading = false;
+  // Used only to know when the GET request has finished
+  // No loading screen will be shown
+  loaded = false;
 
   errorMessage = '';
+
 
   // ================= LANGUAGE =================
 
@@ -38,24 +41,35 @@ export class Orders implements OnInit {
     return this.languageService.isArabic();
   }
 
+
   // ================= INIT =================
 
   ngOnInit(): void {
+
     this.loadOrders();
+
   }
+
 
   // ================= LOAD ORDERS =================
 
   loadOrders(): void {
 
-    // Don't show loading screen
-    this.loading = false;
-
     this.errorMessage = '';
+
+    // Request started
+    this.loaded = false;
+
 
     this.orderService.getOrders().subscribe({
 
       next: (response) => {
+
+        console.log(
+          'ORDERS RESPONSE:',
+          response
+        );
+
 
         if (Array.isArray(response)) {
 
@@ -67,9 +81,24 @@ export class Orders implements OnInit {
 
         }
 
-        this.loading = false;
+
+        console.log(
+          'ORDERS:',
+          this.orders
+        );
+
+
+        console.log(
+          'ORDERS COUNT:',
+          this.orders.length
+        );
+
+
+        // Request finished
+        this.loaded = true;
 
       },
+
 
       error: (error) => {
 
@@ -78,10 +107,17 @@ export class Orders implements OnInit {
           error
         );
 
-        this.loading = false;
+
+        this.orders = [];
+
+        // Request finished even if there is an error
+        this.loaded = true;
+
 
         this.errorMessage = this.isArabic
+
           ? 'لم نتمكن من تحميل طلباتك حاليًا. يرجى المحاولة مرة أخرى.'
+
           : 'We could not load your orders right now. Please try again.';
 
       }
@@ -89,6 +125,7 @@ export class Orders implements OnInit {
     });
 
   }
+
 
   // ================= STATUS CLASS =================
 
@@ -118,6 +155,7 @@ export class Orders implements OnInit {
 
   }
 
+
   // ================= STATUS TEXT =================
 
   getStatusText(status?: string): string {
@@ -127,6 +165,7 @@ export class Orders implements OnInit {
       return status || 'Pending';
 
     }
+
 
     switch (status) {
 
@@ -156,6 +195,7 @@ export class Orders implements OnInit {
 
   }
 
+
   // ================= DATE =================
 
   formatDate(date?: string): string {
@@ -165,6 +205,7 @@ export class Orders implements OnInit {
       return '';
 
     }
+
 
     return new Date(date).toLocaleDateString(
 
