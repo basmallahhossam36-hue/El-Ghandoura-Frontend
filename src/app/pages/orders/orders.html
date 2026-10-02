@@ -63,11 +63,14 @@
   </header>
 
 
-  <!-- ================= PAGE HEADER ================= -->
+  <!-- ================= PAGE ================= -->
 
   <main>
 
     <section class="orders-section">
+
+
+      <!-- ================= PAGE HEADER ================= -->
 
       <div class="section-heading">
 
@@ -135,9 +138,9 @@
       }
 
 
-      <!-- ================= EMPTY ================= -->
+      <!-- ================= NO ORDERS ================= -->
 
-      @if (!errorMessage && orders.length === 0) {
+      @if (!errorMessage && loaded && orders.length === 0) {
 
         <div class="empty-container">
 
@@ -179,186 +182,183 @@
 
       <!-- ================= ORDERS ================= -->
 
-      @if (!errorMessage && orders.length > 0) {
+      <div class="orders-list">
 
-        <div class="orders-list">
+        @for (order of orders; track order._id) {
 
-          @for (order of orders; track order._id) {
-
-            <article class="order-card">
+          <article class="order-card">
 
 
-              <!-- ORDER TOP -->
+            <!-- ORDER TOP -->
 
-              <div class="order-top">
+            <div class="order-top">
 
-                <div>
+              <div>
 
-                  <span class="order-label">
-                    {{ isArabic ? 'رقم الطلب' : 'ORDER ID' }}
-                  </span>
-
-                  <h3>
-                    #{{ order._id }}
-                  </h3>
-
-                </div>
-
-
-                <span
-                  class="status"
-                  [class]="getStatusClass(order.status)"
-                >
-                  {{ getStatusText(order.status) }}
+                <span class="order-label">
+                  {{ isArabic ? 'رقم الطلب' : 'ORDER ID' }}
                 </span>
 
-              </div>
-
-
-              <div class="divider"></div>
-
-
-              <!-- PRODUCT -->
-
-              <div class="product-section">
-
-                <div class="product-icon">
-                  📦
-                </div>
-
-                <div class="product-details">
-
-                  <span class="label">
-                    {{ isArabic ? 'المنتج' : 'Product' }}
-                  </span>
-
-                  <h2>
-                    {{ order.productName }}
-                  </h2>
-
-                </div>
+                <h3>
+                  #{{ order._id }}
+                </h3>
 
               </div>
 
 
-              <!-- ORDER DETAILS -->
+              <span
+                class="status"
+                [class]="getStatusClass(order.status)"
+              >
+                {{ getStatusText(order.status) }}
+              </span>
 
-              <div class="order-details">
-
-
-                <div class="detail-box">
-
-                  <span class="label">
-                    {{ isArabic ? 'الكمية' : 'Quantity' }}
-                  </span>
-
-                  <strong>
-                    {{ order.quantity }}
-                  </strong>
-
-                </div>
+            </div>
 
 
-                <div class="detail-box">
-
-                  <span class="label">
-                    {{ isArabic ? 'الإجمالي' : 'Total' }}
-                  </span>
-
-                  <strong class="price">
-
-                    {{ order.totalPrice | number:'1.0-2' }}
-
-                    EGP
-
-                  </strong>
-
-                </div>
+            <div class="divider"></div>
 
 
-                <div class="detail-box">
+            <!-- PRODUCT -->
 
-                  <span class="label">
-                    {{ isArabic ? 'تاريخ الطلب' : 'Order Date' }}
-                  </span>
+            <div class="product-section">
 
-                  <strong>
-                    {{ formatDate(order.orderDate) }}
-                  </strong>
+              <div class="product-icon">
+                📦
+              </div>
 
-                </div>
+              <div class="product-details">
 
+                <span class="label">
+                  {{ isArabic ? 'المنتج' : 'Product' }}
+                </span>
+
+                <h2>
+                  {{ order.productName }}
+                </h2>
+
+              </div>
+
+            </div>
+
+
+            <!-- ORDER DETAILS -->
+
+            <div class="order-details">
+
+
+              <div class="detail-box">
+
+                <span class="label">
+                  {{ isArabic ? 'الكمية' : 'Quantity' }}
+                </span>
+
+                <strong>
+                  {{ order.quantity }}
+                </strong>
 
               </div>
 
 
-              <!-- DELIVERY -->
+              <div class="detail-box">
 
-              <div class="delivery-section">
+                <span class="label">
+                  {{ isArabic ? 'الإجمالي' : 'Total' }}
+                </span>
 
-                <div class="delivery-title">
+                <strong class="price">
 
-                  <span class="delivery-icon">
-                    📍
-                  </span>
+                  {{ order.totalPrice | number:'1.0-2' }}
 
-                  <h3>
-                    {{
-                      isArabic
-                        ? 'معلومات التوصيل'
-                        : 'Delivery Information'
-                    }}
-                  </h3>
+                  EGP
 
-                </div>
-
-
-                <div class="delivery-info">
-
-                  <p>
-
-                    <span>
-                      {{ isArabic ? 'الاسم' : 'Name' }}
-                    </span>
-
-                    {{ order.customerName }}
-
-                  </p>
-
-
-                  <p>
-
-                    <span>
-                      {{ isArabic ? 'الهاتف' : 'Phone' }}
-                    </span>
-
-                    {{ order.phone }}
-
-                  </p>
-
-
-                  <p>
-
-                    <span>
-                      {{ isArabic ? 'العنوان' : 'Address' }}
-                    </span>
-
-                    {{ order.address }}
-
-                  </p>
-
-                </div>
+                </strong>
 
               </div>
 
 
-            </article>
+              <div class="detail-box">
 
-          }
+                <span class="label">
+                  {{ isArabic ? 'تاريخ الطلب' : 'Order Date' }}
+                </span>
 
-        </div>
+                <strong>
+                  {{ formatDate(order.orderDate) }}
+                </strong>
 
-      }
+              </div>
+
+
+            </div>
+
+
+            <!-- DELIVERY -->
+
+            <div class="delivery-section">
+
+              <div class="delivery-title">
+
+                <span class="delivery-icon">
+                  📍
+                </span>
+
+                <h3>
+                  {{
+                    isArabic
+                      ? 'معلومات التوصيل'
+                      : 'Delivery Information'
+                  }}
+                </h3>
+
+              </div>
+
+
+              <div class="delivery-info">
+
+                <p>
+
+                  <span>
+                    {{ isArabic ? 'الاسم' : 'Name' }}
+                  </span>
+
+                  {{ order.customerName }}
+
+                </p>
+
+
+                <p>
+
+                  <span>
+                    {{ isArabic ? 'الهاتف' : 'Phone' }}
+                  </span>
+
+                  {{ order.phone }}
+
+                </p>
+
+
+                <p>
+
+                  <span>
+                    {{ isArabic ? 'العنوان' : 'Address' }}
+                  </span>
+
+                  {{ order.address }}
+
+                </p>
+
+              </div>
+
+            </div>
+
+
+          </article>
+
+        }
+
+      </div>
+
 
     </section>
 
