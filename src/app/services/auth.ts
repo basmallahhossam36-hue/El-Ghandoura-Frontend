@@ -25,7 +25,7 @@ export interface LoginData {
 export class AuthService {
   private http = inject(HttpClient);
 
-private apiUrl = 'https://final-nti-83xh.vercel.app/auth';
+private apiUrl = 'https://final-nti-beta.vercel.app/auth';
   signup(data: SignupData): Observable<AuthResponse> {
     const body = new HttpParams()
       .set('name', data.name)
