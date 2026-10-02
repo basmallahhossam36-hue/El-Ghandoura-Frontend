@@ -9,7 +9,6 @@ import {
 
 import { LanguageService } from '../../services/language';
 
-
 @Component({
   selector: 'app-orders',
   standalone: true,
@@ -26,13 +25,12 @@ export class Orders implements OnInit {
 
   private languageService = inject(LanguageService);
 
-
   orders: Order[] = [];
 
-  loading = true;
+  // Loading is disabled so the page opens immediately
+  loading = false;
 
   errorMessage = '';
-
 
   // ================= LANGUAGE =================
 
@@ -40,22 +38,20 @@ export class Orders implements OnInit {
     return this.languageService.isArabic();
   }
 
-
   // ================= INIT =================
 
   ngOnInit(): void {
     this.loadOrders();
   }
 
-
   // ================= LOAD ORDERS =================
 
   loadOrders(): void {
 
-    this.loading = true;
+    // Don't show loading screen
+    this.loading = false;
 
     this.errorMessage = '';
-
 
     this.orderService.getOrders().subscribe({
 
@@ -75,13 +71,14 @@ export class Orders implements OnInit {
 
       },
 
-
       error: (error) => {
 
-        console.error('Failed to load orders:', error);
+        console.error(
+          'Failed to load orders:',
+          error
+        );
 
         this.loading = false;
-
 
         this.errorMessage = this.isArabic
           ? 'لم نتمكن من تحميل طلباتك حاليًا. يرجى المحاولة مرة أخرى.'
@@ -92,7 +89,6 @@ export class Orders implements OnInit {
     });
 
   }
-
 
   // ================= STATUS CLASS =================
 
@@ -122,7 +118,6 @@ export class Orders implements OnInit {
 
   }
 
-
   // ================= STATUS TEXT =================
 
   getStatusText(status?: string): string {
@@ -132,7 +127,6 @@ export class Orders implements OnInit {
       return status || 'Pending';
 
     }
-
 
     switch (status) {
 
@@ -162,7 +156,6 @@ export class Orders implements OnInit {
 
   }
 
-
   // ================= DATE =================
 
   formatDate(date?: string): string {
@@ -173,10 +166,11 @@ export class Orders implements OnInit {
 
     }
 
-
     return new Date(date).toLocaleDateString(
 
-      this.isArabic ? 'ar-EG' : 'en-GB',
+      this.isArabic
+        ? 'ar-EG'
+        : 'en-GB',
 
       {
         day: '2-digit',

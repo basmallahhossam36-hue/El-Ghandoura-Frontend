@@ -121,14 +121,14 @@ export class Checkout {
       this.subtotal;
 
     const orderData = {
-  customerName,
-  email: this.checkoutForm.value.email ?? '',
-  phone: this.checkoutForm.value.phone ?? '',
-  address: this.checkoutForm.value.address ?? '',
-  productName,
-  quantity,
-  totalPrice
-};
+      customerName,
+      email: this.checkoutForm.value.email ?? '',
+      phone: this.checkoutForm.value.phone ?? '',
+      address: this.checkoutForm.value.address ?? '',
+      productName,
+      quantity,
+      totalPrice
+    };
 
     this.orderService.createOrder(orderData).subscribe({
 
@@ -151,14 +151,8 @@ export class Checkout {
               : `Your order has been placed successfully.\nOrder ID: ${orderId}`
           );
 
-          this.router.navigate(
-            ['/track-order'],
-            {
-              queryParams: {
-                id: orderId
-              }
-            }
-          );
+          // Automatically go to My Orders
+          this.router.navigate(['/orders']);
 
         } else {
 
@@ -168,7 +162,8 @@ export class Checkout {
               : 'Order created successfully.'
           );
 
-          this.router.navigate(['/']);
+          // Automatically go to My Orders
+          this.router.navigate(['/orders']);
 
         }
 
