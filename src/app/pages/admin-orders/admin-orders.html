@@ -1,3 +1,4 @@
+```html
 <div class="admin-orders-page">
 
   <div class="orders-intro">
@@ -9,7 +10,6 @@
       View and manage customer orders.
     </p>
   </div>
-
 
   <div class="orders-panel">
 
@@ -42,7 +42,6 @@
 
     </div>
 
-
     @if (loading) {
 
       <div class="empty-state">
@@ -65,6 +64,20 @@
                   <span>Customer</span>
                   <strong>
                     {{ order.customerName }}
+                  </strong>
+                </div>
+
+                <div class="detail">
+                  <span>Phone Number</span>
+                  <strong class="customer-contact">
+                    {{ order.phone || 'Not provided' }}
+                  </strong>
+                </div>
+
+                <div class="detail">
+                  <span>Delivery Address</span>
+                  <strong class="customer-address">
+                    {{ order.address || 'Not provided' }}
                   </strong>
                 </div>
 
@@ -98,7 +111,6 @@
 
               </div>
 
-
               <div class="order-actions">
 
                 <div class="status-control">
@@ -111,37 +123,16 @@
                     [value]="order.status || 'Pending'"
                     (change)="updateStatus(order, $event)"
                   >
-                    <option value="Pending">
-                      Pending
-                    </option>
-
-                    <option value="Confirmed">
-                      Confirmed
-                    </option>
-
-                    <option value="Preparing">
-                      Preparing
-                    </option>
-
-                    <option value="Reached KSA">
-                      Reached KSA
-                    </option>
-
-                    <option value="Shipped">
-                      Shipped
-                    </option>
-
-                    <option value="Reached Egypt">
-                      Reached Egypt
-                    </option>
-
-                    <option value="Delivered">
-                      Delivered
-                    </option>
+                    <option value="Pending">Pending</option>
+                    <option value="Confirmed">Confirmed</option>
+                    <option value="Preparing">Preparing</option>
+                    <option value="Reached KSA">Reached KSA</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Reached Egypt">Reached Egypt</option>
+                    <option value="Delivered">Delivered</option>
                   </select>
 
                 </div>
-
 
                 <button
                   type="button"
@@ -163,9 +154,7 @@
 
         <div class="empty-state">
 
-          <h3>
-            No orders found.
-          </h3>
+          <h3>No orders found.</h3>
 
           <p>
             There are no orders yet.
@@ -180,3 +169,4 @@
   </div>
 
 </div>
+```
