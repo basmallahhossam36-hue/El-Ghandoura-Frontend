@@ -18,15 +18,14 @@ import { routes } from './app.routes';
 import { authInterceptor } from './interceptors/auth-interceptor';
 
 export const appConfig: ApplicationConfig = {
-
   providers: [
-
     provideBrowserGlobalErrorListeners(),
 
     provideRouter(
       routes,
       withInMemoryScrolling({
-        scrollPositionRestoration: 'top'
+        scrollPositionRestoration: 'top',
+        anchorScrolling: 'enabled'
       })
     ),
 
@@ -35,7 +34,5 @@ export const appConfig: ApplicationConfig = {
         authInterceptor
       ])
     )
-
   ]
-
 };
